@@ -1,7 +1,6 @@
 package retailcx.fn.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class Inbound {
 
     URI ENDPOINT = URI.create("http://loyalty-api-aws.eu-central-1.elasticbeanstalk.com/v1/api/Loyalties/2/Products");
