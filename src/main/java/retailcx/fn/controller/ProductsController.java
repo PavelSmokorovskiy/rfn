@@ -25,7 +25,7 @@ public class ProductsController {
     @PostMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Integer productsInbound(@RequestBody Map<String, Object> parsed) {
+    public Map<String, String> productsInbound(@RequestBody Map<String, Object> parsed) {
 
         pack.put("EndDate", "2020-01-21T04:13:13.851Z");
         pack.put("ExternalId", String.valueOf(parsed.get("code")));
@@ -33,7 +33,9 @@ public class ProductsController {
         pack.put("Name", String.valueOf(parsed.get("name")));
         pack.put("StartDate", "2020-01-21T04:13:13.851Z");
 
-        return submitService.submit(loyaltyEndpoint, pack);
+        Integer statusCode =  submitService.submit(loyaltyEndpoint, pack);
+        pack.put("StatusCode", statusCode.toString());
+        return pack;
     }
 
 }
