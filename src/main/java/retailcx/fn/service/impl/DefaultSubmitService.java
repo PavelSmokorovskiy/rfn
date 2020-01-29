@@ -29,10 +29,10 @@ public class DefaultSubmitService implements SubmitService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return 0;
+        return 500;
     }
 
-    public HttpRequest createRequest(String uri, Map<String, String> pack) throws JsonProcessingException {
+    private HttpRequest createRequest(String uri, Map<String, String> pack) throws JsonProcessingException {
 
         return HttpRequest.newBuilder(URI.create(uri))
                 .header("accept", "*/*")
@@ -44,7 +44,7 @@ public class DefaultSubmitService implements SubmitService {
                 .build();
     }
 
-    public Integer postHttpClient(HttpRequest request) {
+    private Integer postHttpClient(HttpRequest request) {
         return HttpClient.newHttpClient()
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::statusCode)
