@@ -1,8 +1,8 @@
 package retailcx.fn.service;
 
-import java.net.http.HttpRequest;
+import java.util.Map;
 
 public interface SubmitService {
 
-    Integer submit(HttpRequest request);
+    Integer submit(String uri, Map<String, String> pack);
 }
