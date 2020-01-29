@@ -1,10 +1,12 @@
 package retailcx.fn.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import retailcx.fn.service.SubmitService;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,6 +19,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/v1/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductsController {
+
+    SubmitService submitService;
 
     @Value("${loyalty.endpoint}")
     private String loyaltyEndpoint;
@@ -53,9 +57,6 @@ public class ProductsController {
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
-        return HttpClient.newHttpClient()
-                .sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::statusCode)
-                .join();
+        return submitService.post(request);
     }
 }
