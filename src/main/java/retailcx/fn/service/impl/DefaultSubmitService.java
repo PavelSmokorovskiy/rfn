@@ -2,6 +2,8 @@ package retailcx.fn.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,20 +18,17 @@ import java.util.Map;
 @Service
 public class DefaultSubmitService implements SubmitService {
 
+    private Logger logger = LoggerFactory.getLogger(DefaultSubmitService.class);
+
     @Value("${loyalty.authentication}")
     private String loyaltyAuthentication;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public Integer submit(String uri, Map<String, String> pack) {
+    public void submit(String uri, Map<String, String> pack) throws JsonProcessingException {
 
-        try {
-            return postHttpClient(createRequest(uri, pack));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return 500;
+            postHttpClient(createRequest(uri, pack));
     }
 
     private HttpRequest createRequest(String uri, Map<String, String> pack) throws JsonProcessingException {
@@ -44,10 +43,11 @@ public class DefaultSubmitService implements SubmitService {
                 .build();
     }
 
-    private Integer postHttpClient(HttpRequest request) {
-        return HttpClient.newHttpClient()
+    private void postHttpClient(HttpRequest request) {
+        Integer statusCode = HttpClient.newHttpClient()
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::statusCode)
                 .join();
+        logger.info("Data sent. Returned status code: {}", statusCode);
     }
 }

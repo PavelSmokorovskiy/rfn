@@ -1,8 +1,10 @@
 package retailcx.fn.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.util.Map;
 
 public interface SubmitService {
 
-    Integer submit(String uri, Map<String, String> pack);
+    void submit(String uri, Map<String, String> pack) throws JsonProcessingException;
 }
