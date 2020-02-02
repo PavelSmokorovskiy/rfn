@@ -1,6 +1,8 @@
 package retailcx.fn.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/v1/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductsController {
+
+    private Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
     @Autowired
     private SubmitService submitService;
@@ -33,6 +37,7 @@ public class ProductsController {
         pack.put("Name", String.valueOf(parsed.get("name")));
         pack.put("StartDate", "2020-01-21T04:13:13.851Z");
 
+        logger.info("Json created {}", pack);
         submitService.submit(loyaltyEndpoint, pack);
     }
 }
