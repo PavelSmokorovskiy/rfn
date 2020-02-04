@@ -1,6 +1,5 @@
 package retailcx.middleware.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,12 @@ public class ProductsController {
     @PostMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void productsInbound(@RequestBody @Valid ProductDto dto) throws JsonProcessingException {
+    public void productsInbound(@RequestBody @Valid ProductDto dto) {
 
         logger.info("Inbound product: {}", dto);
         submitService.submit(productEndpoint, dto.toJSON());
-        for(var category: dto.getSupercategories()){
-            submitService.submit(productEndpoint, category.toJSON());
+        for (var category : dto.getSupercategories()) {
+            submitService.submit(categoryEndpoint, category.toJSON());
         }
     }
 }
