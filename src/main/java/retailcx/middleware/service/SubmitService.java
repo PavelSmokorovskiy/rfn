@@ -1,4 +1,4 @@
-package retailcx.fn.service;
+package retailcx.middleware.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

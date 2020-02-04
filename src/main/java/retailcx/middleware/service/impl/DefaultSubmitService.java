@@ -1,4 +1,4 @@
-package retailcx.fn.service.impl;
+package retailcx.middleware.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import retailcx.fn.service.SubmitService;
+import retailcx.middleware.service.SubmitService;
 
 import java.net.URI;
 import java.net.http.HttpClient;

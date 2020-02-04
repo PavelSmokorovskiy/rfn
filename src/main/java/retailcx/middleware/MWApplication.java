@@ -1,12 +1,12 @@
-package retailcx.fn;
+package retailcx.middleware;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FnApplication {
+public class MWApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FnApplication.class, args);
+        SpringApplication.run(MWApplication.class, args);
     }
 }

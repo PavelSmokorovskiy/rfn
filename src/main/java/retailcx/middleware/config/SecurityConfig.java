@@ -1,4 +1,4 @@
-package retailcx.fn.config;
+package retailcx.middleware.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
