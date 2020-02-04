@@ -2,6 +2,7 @@ package retailcx.middleware.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Map;
 
 @Service
 public class DefaultSubmitService implements SubmitService {
@@ -23,23 +23,20 @@ public class DefaultSubmitService implements SubmitService {
     @Value("${loyalty.authentication}")
     private String loyaltyAuthentication;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
-    public void submit(String uri, Map<String, String> pack) throws JsonProcessingException {
+    public void submit(String uri, JSONObject json) {
 
-            postHttpClient(createRequest(uri, pack));
+        postHttpClient(createRequest(uri, json));
     }
 
-    private HttpRequest createRequest(String uri, Map<String, String> pack) throws JsonProcessingException {
+    private HttpRequest createRequest(String uri, JSONObject json) {
 
-        return HttpRequest.newBuilder(URI.create(uri))
+        return HttpRequest.newBuilder()
+                .uri(URI.create(uri))
                 .header("accept", "*/*")
                 .header("Authorization", loyaltyAuthentication)
                 .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-                .POST(HttpRequest.BodyPublishers.ofString(objectMapper
-                        .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(pack)))
+                .POST(HttpRequest.BodyPublishers.ofString(json.toJSONString()))
                 .build();
     }
 

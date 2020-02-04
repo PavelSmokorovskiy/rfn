@@ -12,7 +12,6 @@ import retailcx.middleware.dto.ProductDto;
 import retailcx.middleware.service.SubmitService;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/v1/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,27 +22,21 @@ public class ProductsController {
     @Autowired
     private SubmitService submitService;
 
-    @Value("${loyalty.endpoint}" + "${loyalty.products}")
-    private String loyaltyEndpoint;
+    @Value("${loyalty.endpoint}" + "${loyalty.product}")
+    private String productEndpoint;
+
+    @Value("${loyalty.endpoint}" + "${loyalty.category}")
+    private String categoryEndpoint;
 
     @PostMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void productsInbound(@RequestBody @Valid ProductDto dto) {
-//    public void productsInbound(@RequestBody Map<String, Object> dto) {
+    public void productsInbound(@RequestBody @Valid ProductDto dto) throws JsonProcessingException {
 
         logger.info("Inbound product: {}", dto);
-
-
-
-//        Map<String, String> pack = new HashMap<>();
-//        pack.put("EndDate", "2020-01-21T04:13:13.851Z");
-//        pack.put("ExternalId", String.valueOf(parsed.get("code")));
-//        pack.put("MemberActivityTypeId", "string");
-//        pack.put("Name", String.valueOf(parsed.get("name")));
-//        pack.put("StartDate", "2020-01-21T04:13:13.851Z");
-//
-//        logger.info("Json created {}", pack);
-//        submitService.submit(loyaltyEndpoint, pack);
+        submitService.submit(productEndpoint, dto.toJSON());
+        for(var category: dto.getSupercategories()){
+            submitService.submit(productEndpoint, category.toJSON());
+        }
     }
 }

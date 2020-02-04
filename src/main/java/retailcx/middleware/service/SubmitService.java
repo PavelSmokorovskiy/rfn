@@ -1,10 +1,8 @@
 package retailcx.middleware.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.util.Map;
+import net.minidev.json.JSONObject;
 
 public interface SubmitService {
 
-    void submit(String uri, Map<String, String> pack) throws JsonProcessingException;
+    void submit(String uri, JSONObject json);
 }

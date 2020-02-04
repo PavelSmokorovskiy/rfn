@@ -1,5 +1,7 @@
 package retailcx.middleware.dto;
 
+import net.minidev.json.JSONObject;
+
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -13,11 +15,16 @@ public class ProductDto {
     @NotBlank
     private String name;
 
-    private String memberActivityTypeId = "string";
+    public JSONObject toJSON() {
 
-    private String endDate = "2020-01-21T04:13:13.851Z";
-
-    private String startDate = "2020-01-21T04:13:13.851Z";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("EndDate", "2020-02-04T08:00:45.052Z");
+        jsonObject.put("ExternalId", code);
+        jsonObject.put("MemberActivityTypeId", "string");
+        jsonObject.put("Name", name);
+        jsonObject.put("StartDate", "2020-02-04T08:00:45.052Z");
+        return jsonObject;
+    }
 
     public List<CategoryDto> getSupercategories() {
         return supercategories;
@@ -43,27 +50,12 @@ public class ProductDto {
         this.name = name;
     }
 
-    public String getMemberActivityTypeId() {
-        return memberActivityTypeId;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
     @Override
     public String toString() {
         return "ProductDto{" +
                 "supercategories=" + supercategories.toString() +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", memberActivityTypeId='" + memberActivityTypeId + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", startDate='" + startDate + '\'' +
                 '}';
     }
 }
