@@ -12,6 +12,7 @@ import retailcx.middleware.dto.ProductDto;
 import retailcx.middleware.service.SubmitService;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/v1/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,8 +30,9 @@ public class ProductsController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public void productsInbound(@RequestBody @Valid ProductDto dto) {
+//    public void productsInbound(@RequestBody Map<String, Object> dto) {
 
-        System.out.println("dto.toString() = " + dto.toString());
+        logger.info("Inbound product: {}", dto);
 
 
 
