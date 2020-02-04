@@ -1,10 +1,10 @@
-package retailcx.fn;
+package retailcx.middleware;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MWApplicationTests {
+class MiddlewareApplicationTests {
 
 	@Test
 	void contextLoads() {
